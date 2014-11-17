@@ -1,0 +1,28 @@
+{{set . "title" "TagCloud"}}
+{{append . "moreStyles" "http://cdn.bootcss.com/jqcloud/1.0.4/jqcloud.css"}}
+{{template "header" .}}
+{{template "front_page_header" .}}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9" style="position:relative;">
+      <div id="tagcloud" style="height:300px"></div>
+    </div>
+    <div class="col-sm-3">{{template "front_page_sider" .}}</div>
+  </div>
+</div>
+{{append . "moreScripts" "http://cdn.bootcss.com/jqcloud/1.0.4/jqcloud-1.0.4.min.js"}}
+{{template "footer" .}}
+<script>
+  $(function(){    
+    var words = [];
+    {{range hotTags}}
+    words.push({
+      text:"{{.Key}}",
+      weight:{{.Count}},
+      link:"/tag/{{.Key}}"
+    })
+    {{end}}
+
+    $("#tagcloud").jQCloud(words);
+  });
+</script>

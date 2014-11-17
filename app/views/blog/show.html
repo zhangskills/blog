@@ -1,0 +1,42 @@
+{{set . "title" .blog.Title}}
+{{template "header" .}}
+{{template "front_page_header" .}}
+<div class="container">
+	<div class="row">
+		<div class="col-sm-9">
+		<div class="page-header">
+			<h3>{{.blog.Title}}</h3>
+			<div class="text-right">
+				<b>创建时间:</b>{{showDate .blog.Created}}
+				<b>阅读数：</b>{{.blog.ViewNum}}
+			{{if .blog.Tags}}
+				<b>标签：</b>
+			{{range .blog.Tags}}
+				<a href="/tag/{{.Name}}">{{.Name}}</a>
+				{{end}}
+				{{end}}
+			</div>
+		</div>
+			{{raw .blog.Content}}
+			<div id="disqus_thread"></div>
+			<script type="text/javascript">
+		        var disqus_shortname = 'zhangskills'; 
+		        (function() {
+		            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		        })();
+		    </script>
+			<noscript>
+				Please enable JavaScript to view the
+				<a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+			</noscript>
+		</div>
+		<div class="col-sm-3">
+			{{template "front_page_sider" .}}
+		</div>
+	</div>
+</div>
+
+{{append . "moreScripts" "http://cdn.bootcss.com/prettify/r298/run_prettify.min.js"}}
+{{template "footer" .}}

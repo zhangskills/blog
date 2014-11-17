@@ -1,0 +1,18 @@
+{{set . "title" "About me"}}
+{{template "header" .}}
+{{template "front_page_header" .}}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="page-header">
+        <h3>about me</h3>
+        <p>jack zhang</p>
+        <p>新浪微博：<a href="http://www.weibo.com/zhangskills" target="_blank">程序员Jack</a> </p>
+        <p>GitHub：<a href="https://github.com/zhangskills" target="_blank">程序员Jack</a></p>
+        <p>电子邮箱：<a href="mailto:zhangskills@gmail.com" target="_blank">zhangskills@g<i></i>mail.com</a> </p>
+      </div>
+    </div>
+    <div class="col-sm-3">{{template "front_page_sider" .}}</div>
+  </div>
+</div>
+{{template "footer" .}}

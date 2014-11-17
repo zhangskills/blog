@@ -1,0 +1,36 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+module:testrunner
+
+GET     /                                  		Blog.List
+GET     /about                             		App.About
+
+GET    	/admin/                      			Admin.Blogs
+GET    	/admin/blogs/:page                      Admin.Blogs
+POST    /admin/blog/save                        Admin.SaveBlog
+POST    /admin/blog/del                        	Admin.DelBlog
+GET     /admin/blog/:id                        	Admin.GetBlog
+
+GET    	/login                               	User.ToLogin
+POST   	/login                               	User.Login
+
+GET     /blog/:id                         	 	Blog.Show
+GET     /blogs/:page                            Blog.List
+
+GET     /tag/cloud                           	Tag.Cloud
+GET     /tag/:tagName/:page                     Tag.BlogList
+GET     /tag/:tagName                           Tag.BlogList
+
+#上传
+GET 	/upload/token 							Upload.UploadToken
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/*filepath                       Static.Serve("public")
+
+# Catch all
+*       /:controller/:action                    :controller.:action

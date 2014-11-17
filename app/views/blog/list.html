@@ -1,0 +1,22 @@
+{{set . "title" .pageName}}
+{{template "header" .}}
+{{template "front_page_header" .}}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="page-header"><h3>{{.pageName}}</h3></div>
+      {{range .blogs}}
+      <div class="media">
+        <h4><a href="/blog/{{.Id}}">{{.Title}}</a></h4>
+        <span><b>创建时间：</b>{{showDate .Created}} <b>阅读数：</b>{{.ViewNum}}</span>
+      </div>
+      {{end}}
+      {{set . "p_pre" "/blogs/"}}
+      {{template "pagination" .}}
+    </div>
+    <div class="col-sm-3" style="position:relative;">
+      {{template "front_page_sider" .}}
+    </div>
+  </div>
+</div>
+{{template "footer" .}}
