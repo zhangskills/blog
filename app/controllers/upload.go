@@ -10,6 +10,7 @@ import (
 )
 
 func init() {
+
 	revel.OnAppStart(func() {
 		conf.ACCESS_KEY = revel.Config.StringDefault("qiniu.access_key", "")
 		conf.SECRET_KEY = revel.Config.StringDefault("qiniu.secret_key", "")
