@@ -118,6 +118,9 @@ func init() {
 
 		engine.CreateTables(&models.Blog{}, &models.Tag{}, &models.BlogTag{})
 
+		cacher := xorm.NewLRUCacher(xorm.NewMemoryStore(), 1000)
+		engine.SetDefaultCacher(cacher)
+
 		refreshHotTags()
 		refreshHotBlogs()
 	})
