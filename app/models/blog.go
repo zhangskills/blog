@@ -11,7 +11,7 @@ type Blog struct {
 	ViewNum int       `json:"viewNum"`
 	Created time.Time `json:"created" xorm:"created"`
 	Updated time.Time `json:"updated" xorm:"updated"`
-	Deleted time.Time `json:"-"`
+	Deleted time.Time `json:"-" xorm:"deleted"`
 
 	Tags []*Tag `json:"tags" xorm:"-"`
 }
