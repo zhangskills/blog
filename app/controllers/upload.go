@@ -12,6 +12,10 @@ import (
 func init() {
 	conf.ACCESS_KEY = "LK98ISUr2nCKBkH1EYszF7IEmZ2BPbvzWC3uz2su"
 	conf.SECRET_KEY = "x4-Z1sbTFv1mPqXK5Vw4XVjveZuSnrlQlcsXQWdT"
+	revel.OnAppStart(func() {
+		conf.ACCESS_KEY = revel.Config.StringDefault("qiniu.access_key", "")
+		conf.SECRET_KEY = revel.Config.StringDefault("qiniu.secret_key", "")
+	})
 }
 
 type Upload struct {
