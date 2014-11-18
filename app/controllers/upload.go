@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"gBlog/app/utils"
+	"blog/app/utils"
 	"github.com/qiniu/api/conf"
 	"github.com/qiniu/api/rs"
 	"github.com/revel/revel"

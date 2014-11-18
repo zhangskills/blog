@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	"blog/app/models"
 	"flag"
-	"gBlog/app/models"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"
 	"github.com/gosexy/to"

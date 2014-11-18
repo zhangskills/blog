@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"gBlog/app/models"
+	"blog/app/models"
 	"github.com/jinzhu/gorm"
 	"github.com/revel/revel"
 	"github.com/russross/blackfriday"

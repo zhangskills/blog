@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"gBlog/app/models"
+	"blog/app/models"
 	"github.com/revel/revel"
 	log "github.com/xiocode/glog"
 )

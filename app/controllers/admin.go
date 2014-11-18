@@ -1,8 +1,7 @@
 package controllers
 
 import (
-	// "gBlog/app/dao"
-	"gBlog/app/models"
+	"blog/app/models"
 	"github.com/jinzhu/gorm"
 	"github.com/revel/revel"
 	log "github.com/xiocode/glog"
