@@ -95,11 +95,11 @@ module.static=github.com/revel/revel/modules/static
 db.driverName=mysql
 db.dataSourceName=root:@tcp(localhost:3306)/blog?charset=utf8&parseTime=True&loc=Local
 
-user.name=root
-user.password=123
-
 qiniu.access_key = "LK98ISUr2nCKBkH1EYszF7IEmZ2BPbvzWC3uz2su"
 qiniu.secret_key = "x4-Z1sbTFv1mPqXK5Vw4XVjveZuSnrlQlcsXQWdT"
+
+xorm.showErr=true
+xorm.showSQL=true
 
 ################################################################################
 # Section: dev

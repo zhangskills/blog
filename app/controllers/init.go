@@ -113,8 +113,8 @@ func init() {
 			return
 		}
 
-		engine.ShowErr = true
-		engine.ShowSQL = true
+		engine.ShowErr = revel.Config.BoolDefault("xorm.showErr", true)
+		engine.ShowSQL = revel.Config.BoolDefault("xorm.showSQL", true)
 
 		engine.CreateTables(&models.Blog{}, &models.Tag{}, &models.BlogTag{})
 
