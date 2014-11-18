@@ -65,7 +65,7 @@ func (a Admin) SaveBlog(blog models.Blog, tagNames string) revel.Result {
 	var num int64
 	var err error
 	if blog.Id > 0 {
-		num, err = engine.Update(&blog)
+		num, err = engine.Id(blog.Id).Update(&blog)
 	} else {
 		num, err = engine.Insert(&blog)
 	}
