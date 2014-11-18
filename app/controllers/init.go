@@ -54,7 +54,10 @@ func refreshHotTags() {
 
 func refreshHotBlogs() {
 	hotBlogs = hotBlogs[:0]
-	engine.Cols("id", "title").Desc("view_num").Limit(10).Find(&hotBlogs)
+	err := engine.Desc("view_num").Limit(10).Find(&hotBlogs)
+	if err != nil {
+		log.Errorln(err)
+	}
 }
 
 func addBlogView(blogId int64) {
