@@ -4,7 +4,6 @@ import (
 	"crypto/sha1"
 	"fmt"
 	"github.com/gosexy/to"
-	"github.com/sergi/go-diff/diffmatchpatch"
 	"io"
 	"math/rand"
 	"regexp"
@@ -14,12 +13,6 @@ import (
 const (
 	CHAR_MAP = "_0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 )
-
-func GetDiffHtml(text1, text2 string) string {
-	d := diffmatchpatch.New()
-	diffs := d.DiffMain(text1, text2, true)
-	return d.DiffPrettyHtml(diffs)
-}
 
 func FilterAllHtmlTag(html string) string {
 	tagReg := regexp.MustCompile(`<(/?)(\w[^>]*?)>`)
