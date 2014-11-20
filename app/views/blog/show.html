@@ -1,9 +1,9 @@
 {{set . "title" .blog.Title}}
 {{template "header" .}}
 {{template "front_page_header" .}}
-<div class="container">
+<section class="container" id="main">
 	<div class="row">
-		<div class="col-sm-9">
+		<div class="col-sm-8">
 		<div class="page-header">
 			<h3>{{.blog.Title}}</h3>
 			<div class="text-right">
@@ -32,11 +32,11 @@
 				<a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
 			</noscript>
 		</div>
-		<div class="col-sm-3">
+		<div class="col-sm-4">
 			{{template "front_page_sider" .}}
 		</div>
 	</div>
-</div>
+</section>
 
 {{append . "moreScripts" "http://cdn.bootcss.com/prettify/r298/run_prettify.min.js"}}
 {{template "footer" .}}

@@ -1,9 +1,9 @@
 {{set . "title" "About me"}}
 {{template "header" .}}
 {{template "front_page_header" .}}
-<div class="container">
+<section class="container" id="main">
   <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-8">
       <div class="page-header">
         <h3>about me</h3>
         <p>jack zhang</p>
@@ -12,7 +12,7 @@
         <p>电子邮箱：<a href="mailto:zhangskills@gmail.com" target="_blank">zhangskills@g<i></i>mail.com</a> </p>
       </div>
     </div>
-    <div class="col-sm-3">{{template "front_page_sider" .}}</div>
+    <div class="col-sm-4">{{template "front_page_sider" .}}</div>
   </div>
-</div>
+</section>
 {{template "footer" .}}
