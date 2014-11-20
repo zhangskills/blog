@@ -5,8 +5,8 @@
 	<div class="row">
 		<div class="col-sm-8">
 		<div class="page-header">
-			<h3>{{.blog.Title}}</h3>
-			<div class="text-right">
+			<h2>{{.blog.Title}}</h2>
+			<div class="text-right" style="color:#999;">
 				<b>创建时间:</b>{{showDate .blog.Created}}
 				<b>阅读数：</b>{{.blog.ViewNum}}
 			{{if .blog.Tags}}
