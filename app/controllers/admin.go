@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"blog/app/models"
-	"github.com/jinzhu/gorm"
 	"github.com/revel/revel"
 	log "github.com/xiocode/glog"
 	"strings"
@@ -17,7 +16,7 @@ func (a Admin) Blogs(page int) revel.Result {
 
 	var blogs []*models.Blog
 	err := engine.Desc("id").Limit(pageSize, start).Find(&blogs)
-	if err != nil && err != gorm.RecordNotFound {
+	if err != nil {
 		log.Errorln(err)
 		return a.RenderError(err)
 	}
