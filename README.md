@@ -33,4 +33,6 @@ https://github.com/toopay/bootstrap-markdown
 
 https://github.com/malsup/form
 
+http://shapebootstrap.net/demo/html/corlate/blog.html
+
 *图片采用七牛云*

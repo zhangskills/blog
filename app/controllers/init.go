@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"blog/app/models"
+	"blog/app/utils"
 	"flag"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"
@@ -38,7 +39,7 @@ var (
 )
 
 func refreshHotTags() {
-	m, err := engine.Query("select a.name,count(1) from tag a,blog_tag b where a.id=b.tag_id group by tag_id order by count(1) limit 50")
+	m, err := engine.Query("select a.name,count(1) from tag a,blog_tag b where a.id=b.tag_id group by tag_id order by count(1) desc limit 50")
 	if err != nil {
 		log.Errorln(err)
 	} else {
@@ -97,6 +98,14 @@ func init() {
 		}
 		return
 	}
+	revel.TemplateFuncs["substr"] = func(s string, num int) string {
+		str := utils.SubstrByByte(s, num*3)
+		if len(str) < len(s) {
+			return str + "..."
+		}
+		return str
+	}
+
 	revel.TemplateFuncs["hotTags"] = func() []*models.KeyCount {
 		return hotTags
 	}
