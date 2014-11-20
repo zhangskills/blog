@@ -30,7 +30,7 @@ func (t Tag) BlogList(tagName string, page int) revel.Result {
 
 	var blogs []models.Blog
 	start := getStart(page, pageSize)
-	err = engine.Table("blog").Join("left", "blog_tag", "blog.id=blog_tag.blog_id").Limit(pageSize, start).Find(&blogs)
+	err = engine.Table("blog").Join("left", "blog_tag", "blog.id=blog_tag.blog_id").Where("tag_id=?", tag.Id).Limit(pageSize, start).Find(&blogs)
 	if err != nil {
 		log.Errorln(err)
 		return t.RenderError(err)
