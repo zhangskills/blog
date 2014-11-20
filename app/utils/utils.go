@@ -23,6 +23,7 @@ func FilterHarmfulHtmlTag(html string) string {
 	tagReg := regexp.MustCompile(`<(/?)(script|i?frame|style|html|body|title|link|meta|form|input|textarea\?|%)([^>]*?)>`)
 	html = tagReg.ReplaceAllString(html, "&lt;$1$2$3&gt;")
 	attrReg := regexp.MustCompile(`<\w+\s+([^>]+)>`)
+	
 
 	return attrReg.ReplaceAllStringFunc(html, func(s string) string {
 		eventReg := regexp.MustCompile(`\s*on\w+\s*=[^>]*?(\s|>)`)
