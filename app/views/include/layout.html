@@ -13,8 +13,15 @@
 		{{end}}
 
 {{define "front_page_header"}}
+<link href="/public/css/font-awesome.min.css" rel="stylesheet">
+<link href="/public/css/prettyPhoto.css" rel="stylesheet">
+<link href="/public/css/animate.min.css" rel="stylesheet">
+<link href="/public/css/main.css" rel="stylesheet">
+<link href="/public/css/responsive.css" rel="stylesheet">
 <link rel="stylesheet" href="/public/css/index.css?20141016" />
 <body style="padding-top:70px;">
+
+    <header id="header">
 		<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -26,7 +33,7 @@
 					</button>
 					<a class="navbar-brand" href="/">Jack's Blog</a>
 				</div>
-				<div id="navbar" class="collapse navbar-collapse">
+				<div id="navbar" class="collapse navbar-collapse navbar-right">
 					<ul class="nav navbar-nav">
 						<li{{if .nav}}{{if eq .nav 1}} class="active"{{end}}{{end}}>
 							<a href="/">Blogs</a>
@@ -41,61 +48,73 @@
 				</div>
 			</div>
 		</nav>
+	</header>
 		{{end}}
 
 {{define "front_page_sider"}}
-<div style="position:fixed" class="col-sm-3 hidden-xs">
-	<h3>Hot Tags</h3>
-	<div class="tags">
+	<div class="widget tags">
+	    <h3>Hot Tags</h3>
+	    <ul class="tag-cloud">
 		{{range hotTags}}
-		<a href="/tag/{{.Key}}">{{.Key}}({{.Count}})</a>
+	        <li><a class="btn btn-xs btn-primary" href="/tag/{{.Key}}">{{.Key}} ({{.Count}})</a></li>
 		{{end}}
+	    </ul>
 	</div>
-	<h3>Hot Blogs</h3>
-	<ul>
-		{{range hotBlogs}}
-		<li>
-			<a href="/blog/{{.Id}}">{{.Title}}</a>
-		</li>
-		{{end}}
-	</ul>
-</div>
+
+	<div class="widget archieve">
+        <h3>Hot Blogs</h3>
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="blog_archieve">
+					{{range hotBlogs}}
+					<li>
+						<a href="/blog/{{.Id}}" title="{{.Title}}">
+							<i class="fa fa-angle-double-right"></i>
+							{{substr .Title 12}}
+							<span class="pull-right small">阅读数：{{.ViewNum}}</span>
+							</a>
+					</li>
+					{{end}}
+                </ul>
+            </div>
+        </div>                     
+    </div>
 {{end}}
 
 {{define "admin_page_header"}}
 <body>
-		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Project name</a>
-				</div>
-				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-						<li class="active">
-							<a href="#">博客</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-3 col-md-2 sidebar">
-					<ul class="nav nav-sidebar">
-						<li{{if .blogs}} class="active"{{end}}>
-							<a href="#">列表</a>
-						</li>
-					</ul>
-				</div>
-				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-					{{end}}
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Project name</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active">
+						<a href="#">博客</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li{{if .blogs}} class="active"{{end}}>
+						<a href="#">列表</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				{{end}}
 
 {{define "admin_footer"}}
 				</div>

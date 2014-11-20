@@ -1,9 +1,9 @@
 {{set . "title" .pageName}}
 {{template "header" .}}
 {{template "front_page_header" .}}
-<div class="container">
+<section class="container" id="main">
   <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-8">
       <div class="page-header"><h3>{{.pageName}}</h3></div>
       {{range .blogs}}
       <div class="media">
@@ -14,9 +14,9 @@
       {{set . "p_pre" "/blogs/"}}
       {{template "pagination" .}}
     </div>
-    <div class="col-sm-3" style="position:relative;">
+    <div class="col-sm-4" style="position:relative;">
       {{template "front_page_sider" .}}
     </div>
   </div>
-</div>
+</section>
 {{template "footer" .}}
