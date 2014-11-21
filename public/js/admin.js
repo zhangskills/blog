@@ -34,11 +34,11 @@ $(function() {
 				blogModal.find('input[name="blog.Title"]').val(json.msg.title);
 				blogModal.find('textarea[name="blog.Content"]').val(json.msg.content);
 				if (json.msg.tags) {
-					var tags = [];
+					var tagE = blogModal.find('input[name=tagNames]');
+					tagE.tagsinput('removeAll');
 					for (var i = 0, len = json.msg.tags.length; i < len; i++) {
-						tags.push(json.msg.tags[i].name)
+						tagE.tagsinput('add', json.msg.tags[i].name)
 					}
-					blogModal.find('input[name=tagNames]').val(tags.join(','))
 				}
 				blogModal.find('.update').show();
 				blogModal.find('.created-at').text(showDateTime(json.msg.created));
@@ -60,4 +60,33 @@ $(function() {
 			}
 		});
 	});
+
+
+
+	$.getJSON('/tagNames', function(json) {
+		if (json.err) {
+			alert(json.msg);
+			return
+		}
+		$('#tagNames').tagsinput({
+			typeaheadjs: {
+				name: 'citynames',
+				displayKey: 'name',
+				valueKey: 'name',
+				source: function(q, cb) {
+					var matches = [];
+					var substrRegex = new RegExp(q, 'i');
+					$.each(json.msg, function(i, str) {
+						if (substrRegex.test(str)) {
+							matches.push({
+								name: str
+							});
+						}
+					});
+					cb(matches);
+				}
+			}
+		});
+	});
+
 });

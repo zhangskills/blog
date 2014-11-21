@@ -20,6 +20,7 @@ GET     /blog/:id                         	 	Blog.Show
 GET     /blogs/:page                            Blog.List
 
 GET     /tag/cloud                           	Tag.Cloud
+GET     /tagNames                           	Tag.TagNames
 GET     /tag/:tagName/:page                     Tag.BlogList
 GET     /tag/:tagName                           Tag.BlogList
 

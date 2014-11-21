@@ -2,6 +2,7 @@
 {{append . "moreStyles" "/public/css/dashboard.css"}}
 {{append . "moreStyles" "http://cdn.bootcss.com/bootstrap-markdown/2.7.0/css/bootstrap-markdown.min.css"}}
 {{append . "moreStyles" "http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css"}}
+{{append . "moreStyles" "/public/lib/bootstrap-tagsinput/bootstrap-tagsinput.css"}}
 {{template "header" .}}
 {{template "admin_page_header" .}}
 <h3>
@@ -11,6 +12,7 @@
     创建
   </botton>
 </h3>
+
 <table class="table">
   <tr>
     <th width="50%">标题</th>
@@ -73,8 +75,9 @@
           <div class="form-group">
             <label for="tagNames" class="col-sm-2 control-label">标签</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="tagNames" name="tagNames" placeholder="标签（选填），多个请用英文逗号隔开"></div>
+              <input type="text" class="form-control" id="tagNames" name="tagNames"></div>
           </div>
+
           <div class="update">            
             <div class="form-group">
               <label class="col-sm-2 control-label">创建时间</label>
@@ -100,6 +103,8 @@
 {{template "pagination" .}}
 {{append . "moreScripts" "http://cdn.bootcss.com/markdown.js/0.5.0/markdown.min.js"}}
 {{append . "moreScripts" "http://cdn.bootcss.com/bootstrap-markdown/2.7.0/js/bootstrap-markdown.min.js"}}
+{{append . "moreScripts" "/public/lib/bootstrap-tagsinput/bootstrap-tagsinput.min.js"}}
+{{append . "moreScripts" "/public/lib/typeahead.js/dist/typeahead.bundle.js"}}
 {{append . "moreScripts" "/public/js/jquery.form.js"}}
 {{append . "moreScripts" "/public/js/utils.js"}}
 {{append . "moreScripts" "/public/js/admin.js?20141017"}}
