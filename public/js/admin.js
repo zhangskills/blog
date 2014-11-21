@@ -61,8 +61,6 @@ $(function() {
 		});
 	});
 
-
-
 	$.getJSON('/tagNames', function(json) {
 		if (json.err) {
 			alert(json.msg);
