@@ -4,6 +4,7 @@ $(function() {
 	var blogModal = $('#blogModal');
 	$('#add-blog-handle').click(function() {
 		resetForm(blogModal);
+		blogModal.find('input[name=tagNames]').tagsinput('removeAll');
 		blogModal.find('.update').hide();
 		blogModal.modal();
 	});
