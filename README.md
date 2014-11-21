@@ -31,6 +31,10 @@ https://github.com/jquery/jquery
 
 https://github.com/toopay/bootstrap-markdown
 
+https://github.com/twitter/typeahead.js
+
+https://github.com/timschlechter/bootstrap-tagsinput
+
 https://github.com/malsup/form
 
 http://shapebootstrap.net/demo/html/corlate/blog.html

@@ -70,6 +70,7 @@ func (a Admin) SaveBlog(blog models.Blog, tagNames string) revel.Result {
 	}
 	if num > 0 && err == nil {
 		//保存标签
+		engine.Delete(&models.BlogTag{BlogId: blog.Id})
 		for _, tagName := range strings.Split(tagNames, ",") {
 			var tag models.Tag
 			has, err := engine.Where("name=?", tagName).Get(&tag)
@@ -78,7 +79,6 @@ func (a Admin) SaveBlog(blog models.Blog, tagNames string) revel.Result {
 				engine.Insert(&tag)
 			}
 			blog.Tags = append(blog.Tags, &tag)
-			engine.Delete(&models.BlogTag{BlogId: blog.Id, TagId: tag.Id})
 			engine.Insert(&models.BlogTag{BlogId: blog.Id, TagId: tag.Id})
 		}
 	} else {

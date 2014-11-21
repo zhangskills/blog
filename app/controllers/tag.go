@@ -7,12 +7,26 @@ import (
 )
 
 type Tag struct {
-	*revel.Controller
+	Base
 }
 
 func (t Tag) Cloud() revel.Result {
 	nav := 2
 	return t.Render(nav)
+}
+
+func (t *Tag) TagNames() revel.Result {
+	var tags []models.Tag
+	err := engine.Find(&tags)
+	if err != nil {
+		log.Error(err)
+		return t.sendErrJson(err.Error())
+	}
+	var tagNames []string
+	for _, tag := range tags {
+		tagNames = append(tagNames, tag.Name)
+	}
+	return t.sendOkJson(tagNames)
 }
 
 func (t Tag) BlogList(tagName string, page int) revel.Result {
