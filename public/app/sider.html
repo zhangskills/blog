@@ -1,0 +1,24 @@
+<div class="widget tags">
+	<h3>Hot Tags</h3>
+	<ul class="tag-cloud">
+		<li ng-repeat="tag in hotTags">
+			<a class="btn btn-xs btn-primary" href="/tag/{{tag.Key}}">{{tag.Key}} ({{tag.Count}})</a>
+		</li>
+	</ul>
+</div>
+<div class="widget archieve">
+	<h3>Hot Blogs</h3>
+	<div class="row">
+		<div class="col-sm-12">
+			<ul class="blog_archieve">
+				<li ng-repeat="blog in hotBlogs">
+					<a href="/blog/{{blog.Id}}" title="{{blog.Title}}">
+						<i class="fa fa-angle-double-right"></i>
+						{{blog.Title}}
+						<span class="pull-right small">阅读数：{{blog.ViewNum}}</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

@@ -4,7 +4,6 @@
 
 module:testrunner
 
-GET     /                                  		Blog.List
 GET     /about                             		App.About
 
 GET    	/admin/                      			Admin.Blogs
@@ -32,6 +31,13 @@ GET     /favicon.ico                            404
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/*filepath                       Static.Serve("public")
+
+# ng
+GET     /                                  		Api.Index
+GET 	/api/blog/list							Api.BlogList
+GET 	/api/blog/show							Api.BlogShow
+
+GET 	/* 										Api.Index
 
 # Catch all
 *       /:controller/:action                    :controller.:action

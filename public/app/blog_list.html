@@ -1,0 +1,6 @@
+<div class="page-header"><h3>{{pageName}}</h3></div>
+
+<div class="media" ng-repeat="blog in blogs">
+	<h4><a ui-sref="blogShow({id:blog.id})">{{blog.title}}</a></h4>
+	<span><b>创建时间：</b>{{blog.created}} <b>阅读数：</b>{{blog.viewNum}}</span>
+</div>
