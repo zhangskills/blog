@@ -4,7 +4,7 @@
 
 module:testrunner
 
-GET     /about                             		App.About
+# GET     /about                             		App.About
 
 GET    	/admin/                      			Admin.Blogs
 GET    	/admin/blogs/:page                      Admin.Blogs
@@ -12,16 +12,16 @@ POST    /admin/blog/save                        Admin.SaveBlog
 POST    /admin/blog/del                        	Admin.DelBlog
 GET     /admin/blog/:id                        	Admin.GetBlog
 
-GET    	/login                               	User.ToLogin
-POST   	/login                               	User.Login
+# GET    	/login                               	User.ToLogin
+# POST   	/login                               	User.Login
 
-GET     /blog/:id                         	 	Blog.Show
-GET     /blogs/:page                            Blog.List
+# GET     /blog/:id                         	 	Blog.Show
+# GET     /blogs/:page                            Blog.List
 
-GET     /tag/cloud                           	Tag.Cloud
-GET     /tagNames                           	Tag.TagNames
-GET     /tag/:tagName/:page                     Tag.BlogList
-GET     /tag/:tagName                           Tag.BlogList
+# GET     /tag/cloud                           	Tag.Cloud
+# GET     /tagNames                           	Tag.TagNames
+# GET     /tag/:tagName/:page                     Tag.BlogList
+# GET     /tag/:tagName                           Tag.BlogList
 
 #上传
 GET 	/upload/token 							Upload.UploadToken
@@ -36,6 +36,7 @@ GET     /public/*filepath                       Static.Serve("public")
 GET     /                                  		Api.Index
 GET 	/api/blog/list							Api.BlogList
 GET 	/api/blog/show							Api.BlogShow
+GET     /api/tag/cloud                          Api.TagCloud
 
 GET 	/* 										Api.Index
 

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"blog/app/models"
+	"github.com/gosexy/to"
 	"github.com/jinzhu/gorm"
 	"github.com/revel/revel"
 	"github.com/russross/blackfriday"
@@ -59,4 +60,21 @@ func (a *Api) BlogShow(id int64) revel.Result {
 	go addBlogView(id)
 
 	return a.SendJson(err, blog)
+}
+
+func (a *Api) TagCloud() revel.Result {
+	m, err := engine.Query("select a.name,count(1) from tag a,blog_tag b where a.id=b.tag_id group by tag_id order by count(1) desc limit 50")
+	if err != nil {
+		log.Errorln(err)
+		return a.SendJson(err, "")
+	} else {
+		var hotTags []*models.KeyCount
+		for _, f := range m {
+			hotTags = append(hotTags, &models.KeyCount{
+				Key:   to.String(f["name"]),
+				Count: to.Int64(f["count(1)"]),
+			})
+		}
+		return a.SendJson(err, hotTags)
+	}
 }

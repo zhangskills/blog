@@ -11,14 +11,14 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse navbar-right">
 			<ul class="nav navbar-nav">
-				<li class="active">
+				<li ng-class="{active:nav=='bloglist'}">
 					<a ui-sref="bloglist">Blogs</a>
 				</li>
-				<li>
-					<a href="/tag/cloud">Tagcloud</a>
+				<li ng-class="{active:nav=='tagcloud'}">
+					<a ui-sref="tagcloud">Tagcloud</a>
 				</li>
-				<li>
-					<a href="/about">About</a>
+				<li ng-class="{active:nav=='about'}">
+					<a ui-sref="about">About</a>
 				</li>
 			</ul>
 		</div>
