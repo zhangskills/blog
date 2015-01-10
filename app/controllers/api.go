@@ -23,10 +23,13 @@ func (a *Api) Index() revel.Result {
 }
 
 func (a *Api) SendJson(err error, val interface{}) revel.Result {
-	return a.RenderJson(map[string]interface{}{
-		"err": err,
+	res := map[string]interface{}{
 		"val": val,
-	})
+	}
+	if err != nil {
+		res["err"] = err.Error()
+	}
+	return a.RenderJson(res)
 }
 
 func (a *Api) BlogList(tag string, page int) revel.Result {
@@ -89,7 +92,7 @@ func (a *Api) TagNames() revel.Result {
 	return a.SendJson(err, tagNames)
 }
 
-func (a *Api) BlogShow(id int64) revel.Result {
+func (a *Api) BlogShow(id int64, isadmin bool) revel.Result {
 	var blog models.Blog
 
 	has, err := engine.Id(id).Get(&blog)
@@ -99,8 +102,10 @@ func (a *Api) BlogShow(id int64) revel.Result {
 	}
 	engine.Table("tag").Join("left", "blog_tag", "tag.id=blog_tag.tag_id").Where("blog_tag.blog_id=?", id).Find(&blog.Tags)
 
-	content := string(blackfriday.MarkdownCommon([]byte(blog.Content)))
-	blog.Content = strings.Replace(content, "<pre><code", "<pre class=\"prettyprint\"><code", -1)
+	if !isadmin {
+		content := string(blackfriday.MarkdownCommon([]byte(blog.Content)))
+		blog.Content = strings.Replace(content, "<pre><code", "<pre class=\"prettyprint\"><code", -1)
+	}
 	go addBlogView(id)
 
 	return a.SendJson(err, blog)

@@ -4,18 +4,6 @@
 
 module:testrunner
 
-# GET     /about                             		App.About
-
-GET    	/admin/                      			Admin.Blogs
-GET    	/admin/blogs/:page                      Admin.Blogs
-POST    /admin/blog/save                        Admin.SaveBlog
-POST    /admin/blog/del                        	Admin.DelBlog
-GET     /admin/blog/:id                        	Admin.GetBlog
-
-GET    	/login                               	User.ToLogin
-POST   	/login                               	User.Login
-
-
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
@@ -29,6 +17,14 @@ GET 	/api/tag/blog/list						Api.TagBlogList
 GET 	/api/blog/show							Api.BlogShow
 GET     /api/tag/hot                         	Api.HotTags
 GET     /api/blog/hot                         	Api.HotBlogs
+
+GET 	/admin 									AdminApi.Index
+POST 	/admin/api/login						AdminApi.Login
+POST 	/admin/api/blog/save					AdminApi.SaveBlog
+POST 	/admin/api/blog/del					AdminApi.DelBlog
+
+GET 	/admin/*								AdminApi.Index
+
 
 #上传
 GET 	/upload/token 							Api.UploadToken

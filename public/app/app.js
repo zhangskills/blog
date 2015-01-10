@@ -33,7 +33,9 @@ angular.module('my-app', ['ui.router', 'ui.bootstrap', 'restangular', 'ngSanitiz
 
 .run(function($rootScope, $window, $location, $log) {
     $rootScope.$on('$locationChangeSuccess', function(event, url) {
-        $rootScope.nav = '';
+        if (!$location.$$path in ['/', '/tag/cloud', '/about']) {
+            $rootScope.nav = '';
+        }
         document.documentElement.scrollTop = document.body.scrollTop = 0;
     });
 })

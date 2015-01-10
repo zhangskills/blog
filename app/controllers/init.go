@@ -83,6 +83,7 @@ func getStart(page, pageSize int) int {
 func init() {
 	flag.Set("stderrthreshold", "INFO")
 	flag.Set("logtostderr", "true")
+	log.Errorln("log 初始化……")
 
 	revel.TemplateFuncs["showDate"] = func(t time.Time) string {
 		return t.Format("2006-01-02")

@@ -1,0 +1,35 @@
+<h3>
+列表
+<botton type="button" class="btn btn-default small" ng-click="showAddBlog()">
+	<span class="glyphicon glyphicon-plus"></span>
+	创建
+</botton>
+</h3>
+<table class="table">
+	<tr>
+		<th width="50%">标题</th>
+		<th>创建时间</th>
+		<th>更新时间</th>
+		<th>操作</th>
+	</tr>
+	
+	<tr ng-repeat="blog in blogs">
+		<td>{{blog.title}}</td>
+		<td>{{blog.created|date:'yyyy-MM-dd'}}</td>
+		<td>{{blog.updated|date:'yyyy-MM-dd'}}</td>
+		<td>
+			<botton type="button" class="btn btn-default" ng-click="showUpdateBlog(blog.id)">
+				<span class="glyphicon glyphicon-pencil"></span>
+			</botton>
+			<botton type="button" class="btn btn-default" ng-click="delBlog(blog.id)">
+				<span class="glyphicon glyphicon-trash"></span>
+			</botton>
+			<a href="/blog/{{blog.id}}" class="btn btn-default" target="_blank">
+				<span class="glyphicon glyphicon-globe"></span>
+			</a>
+		</td>
+	</tr>
+	
+</table>
+
+<div ng-include="'/public/app/pagination.html'"></div>
