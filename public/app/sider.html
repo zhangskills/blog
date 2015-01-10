@@ -2,7 +2,7 @@
 	<h3>Hot Tags</h3>
 	<ul class="tag-cloud">
 		<li ng-repeat="tag in hotTags">
-			<a class="btn btn-xs btn-primary" href="/tag/{{tag.Key}}">{{tag.Key}} ({{tag.Count}})</a>&nbsp;
+			<a class="btn btn-xs btn-primary" ui-sref="tag({tag:tag.Key})">{{tag.Key}} ({{tag.Count}})</a>&nbsp;
 		</li>
 	</ul>
 </div>
@@ -12,10 +12,10 @@
 		<div class="col-sm-12">
 			<ul class="blog_archieve">
 				<li ng-repeat="blog in hotBlogs">
-					<a href="/blog/{{blog.Id}}" title="{{blog.Title}}">
+					<a ui-sref="blogshow({id:blog.id})" title="{{blog.title}}">
 						<i class="fa fa-angle-double-right"></i>
-						{{blog.Title}}
-						<span class="pull-right small">阅读数：{{blog.ViewNum}}</span>
+						{{blog.title|limitTo:15}}
+						<span class="pull-right small">阅读数：{{blog.viewNum}}</span>
 					</a>
 				</li>
 			</ul>

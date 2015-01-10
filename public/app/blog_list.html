@@ -4,3 +4,5 @@
 	<h4><a ui-sref="blogshow({id:blog.id})">{{blog.title}}</a></h4>
 	<span><b>创建时间：</b>{{blog.created|date:'yyyy-MM-dd'}} <b>阅读数：</b>{{blog.viewNum}}</span>
 </div>
+
+<div ng-include="'/public/app/pagination.html'" scope="" onload=""></div>

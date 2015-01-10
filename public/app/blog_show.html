@@ -7,7 +7,7 @@
 	<a ng-repeat="tag in blog.tags" href="/tag/{{tag.name}}">{{tag.name}}</a>
 </div>
 </div>
-{{blog.content}}
+<div ng-bind-html="blog.content"></div>
 <div id="disqus_thread"></div>
 <noscript>
 	Please enable JavaScript to view the

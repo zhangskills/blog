@@ -8,7 +8,22 @@ import (
 )
 
 type Admin struct {
-	Base
+	*revel.Controller
+}
+
+func (a Admin) sendOkJson(msg interface{}) revel.Result {
+	return a.RenderJson(map[string]interface{}{
+		"msg": msg,
+		"err": false,
+	})
+}
+
+func (a Admin) sendErrJson(msg string) revel.Result {
+	return a.RenderJson(map[string]interface{}{
+		"msg":    msg,
+		"err":    true,
+		"errMap": a.Validation.ErrorMap(),
+	})
 }
 
 func (a Admin) Blogs(page int) revel.Result {

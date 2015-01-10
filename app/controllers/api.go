@@ -2,11 +2,15 @@ package controllers
 
 import (
 	"blog/app/models"
-	"github.com/gosexy/to"
+	"blog/app/utils"
+	"errors"
 	"github.com/jinzhu/gorm"
+	"github.com/qiniu/api/conf"
+	"github.com/qiniu/api/rs"
 	"github.com/revel/revel"
 	"github.com/russross/blackfriday"
 	log "github.com/xiocode/glog"
+	"regexp"
 	"strings"
 )
 
@@ -25,7 +29,7 @@ func (a *Api) SendJson(err error, val interface{}) revel.Result {
 	})
 }
 
-func (a *Api) BlogList(page int) revel.Result {
+func (a *Api) BlogList(tag string, page int) revel.Result {
 	var blogs []*models.Blog
 	start := getStart(page, pageSize)
 	err := engine.Desc("id").Limit(pageSize, start).Find(&blogs)
@@ -45,6 +49,46 @@ func (a *Api) BlogList(page int) revel.Result {
 	})
 }
 
+func (a *Api) TagBlogList(tagName string, page int) revel.Result {
+	var tag models.Tag
+	has, err := engine.Where("name=?", tagName).Get(&tag)
+	if !has {
+		log.Error("标签不存在")
+		return a.SendJson(errors.New("标签不存在"), "")
+	} else if err != nil {
+		log.Errorln(err)
+		return a.SendJson(err, "")
+	}
+	count, err := engine.Count(&tag)
+
+	var blogs []models.Blog
+	start := getStart(page, pageSize)
+	err = engine.Table("blog").Join("left", "blog_tag", "blog.id=blog_tag.blog_id").Where("tag_id=?", tag.Id).Limit(pageSize, start).Find(&blogs)
+	if err != nil {
+		log.Errorln(err)
+		return a.SendJson(err, "")
+	}
+
+	return a.SendJson(err, map[string]interface{}{
+		"blogs": blogs,
+		"count": count,
+	})
+}
+
+func (a *Api) TagNames() revel.Result {
+	var tags []models.Tag
+	err := engine.Find(&tags)
+	if err != nil {
+		log.Error(err)
+		return a.SendJson(err, "")
+	}
+	var tagNames []string
+	for _, tag := range tags {
+		tagNames = append(tagNames, tag.Name)
+	}
+	return a.SendJson(err, tagNames)
+}
+
 func (a *Api) BlogShow(id int64) revel.Result {
 	var blog models.Blog
 
@@ -62,19 +106,33 @@ func (a *Api) BlogShow(id int64) revel.Result {
 	return a.SendJson(err, blog)
 }
 
-func (a *Api) TagCloud() revel.Result {
-	m, err := engine.Query("select a.name,count(1) from tag a,blog_tag b where a.id=b.tag_id group by tag_id order by count(1) desc limit 50")
-	if err != nil {
-		log.Errorln(err)
-		return a.SendJson(err, "")
-	} else {
-		var hotTags []*models.KeyCount
-		for _, f := range m {
-			hotTags = append(hotTags, &models.KeyCount{
-				Key:   to.String(f["name"]),
-				Count: to.Int64(f["count(1)"]),
-			})
-		}
-		return a.SendJson(err, hotTags)
+func (a *Api) HotTags() revel.Result {
+	return a.SendJson(nil, hotTags)
+}
+
+func (a *Api) HotBlogs() revel.Result {
+	return a.SendJson(nil, hotBlogs)
+}
+
+func init() {
+	revel.OnAppStart(func() {
+		conf.ACCESS_KEY = revel.Config.StringDefault("qiniu.access_key", "")
+		conf.SECRET_KEY = revel.Config.StringDefault("qiniu.secret_key", "")
+	})
+}
+func (a *Api) UploadToken(fileName string) revel.Result {
+	r := regexp.MustCompile(`\.(jpe?g|png|bmp|gif)$`)
+	suf := r.FindString(strings.ToLower(fileName))
+	if suf == "" {
+		return a.SendJson(errors.New("请选择图片格式"), "")
 	}
+	fileName = utils.NewFileName() + suf
+	putPolicy := rs.PutPolicy{
+		Scope: "ww-blog:" + fileName,
+	}
+	token := putPolicy.Token(nil)
+	return a.SendJson(nil, map[string]interface{}{
+		"token": token,
+		"key":   fileName,
+	})
 }

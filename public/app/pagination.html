@@ -1,5 +1,3 @@
-<ul class="pagination">
-  <li ng-class="{active:p==cp}" ng-repeat="p in pages">
-      <a href="{{p_pre}}{{p}}">{{.}}</a>
-    </li>
-  </ul>
+<div class="" ng-controller="paginationController">
+<pagination direction-links="false" total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" ng-click="pageChanged()" ></pagination>
+</div>

@@ -106,13 +106,6 @@ func init() {
 		return str
 	}
 
-	revel.TemplateFuncs["hotTags"] = func() []*models.KeyCount {
-		return hotTags
-	}
-	revel.TemplateFuncs["hotBlogs"] = func() []*models.Blog {
-		return hotBlogs
-	}
-
 	revel.OnAppStart(func() {
 		//初始化数据库
 		driverName := revel.Config.StringDefault("db.driverName", "mysql")

@@ -1,11 +1,11 @@
-angular.module('my-app', ['ui.router', 'restangular'])
+angular.module('my-app', ['ui.router', 'ui.bootstrap', 'restangular', 'ngSanitize'])
 
 .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
     function($stateProvider, $urlRouterProvider, $locationProvider) {
         $urlRouterProvider.otherwise('/');
 
         $stateProvider.state('bloglist', {
-            url: '/',
+            url: '/?page',
             templateUrl: 'public/app/blog_list.html',
             controller: 'blogListController'
         }).state('blogshow', {
@@ -16,6 +16,10 @@ angular.module('my-app', ['ui.router', 'restangular'])
             url: '/tag/cloud',
             templateUrl: 'public/app/tag_cloud.html',
             controller: 'tagCloudController'
+        }).state('tag', {
+            url: '/tag/:tag',
+            templateUrl: 'public/app/blog_list.html',
+            controller: 'tagController'
         }).state('about', {
             url: '/about',
             templateUrl: 'public/app/about.html',
@@ -27,21 +31,39 @@ angular.module('my-app', ['ui.router', 'restangular'])
     }
 ])
 
+.run(function($rootScope, $window, $location, $log) {
+    $rootScope.$on('$locationChangeSuccess', function(event, url) {
+        $rootScope.nav = '';
+        document.documentElement.scrollTop = document.body.scrollTop = 0;
+    });
+})
+
 .factory('Rest', ['Restangular', function(Restangular) {
     return Restangular.all('api');
 }])
 
 .controller('indexController', function($scope, Rest) {
-    Rest.get('tag/cloud').then(function(tags) {
+    Rest.get('tag/hot').then(function(tags) {
         $scope.hotTags = tags.val;
+    });
+    Rest.get('blog/hot').then(function(blogs) {
+        $scope.hotBlogs = blogs.val;
     });
 })
 
-.controller('blogListController', function($rootScope, $scope, Rest) {
+.controller('blogListController', function($rootScope, $scope, $stateParams, Rest) {
     window.document.title = '全部 | Jack\'s Blog';
     $rootScope.nav = 'bloglist';
-    Rest.get('blog/list').then(function(res) {
+    $scope.pageName = '全部';
+
+    Rest.get('blog/list', {
+        page: $stateParams.page
+    }).then(function(res) {
         $scope.blogs = res.val.blogs;
+        $scope.$broadcast("pagination", {
+            totalItems: res.val.count,
+            currentPage: $stateParams.page
+        });
     });
 })
 
@@ -67,7 +89,7 @@ angular.module('my-app', ['ui.router', 'restangular'])
 .controller('tagCloudController', function($rootScope, $scope, Rest) {
     window.document.title = 'Tag Cloud | Jack\'s Blog';
     $rootScope.nav = 'tagcloud';
-    Rest.get('tag/cloud').then(function(tags) {
+    Rest.get('tag/hot').then(function(tags) {
         var words = [];
         for (var i = 0; i < tags.val.length; i++) {
             words.push({
@@ -80,7 +102,40 @@ angular.module('my-app', ['ui.router', 'restangular'])
     });
 })
 
+.controller('tagController', function($scope, $stateParams, Rest) {
+    window.document.title = '标签：' + $stateParams.tag + ' | Jack\'s Blog';
+    $scope.pageName = '标签：' + $stateParams.tag;
+    Rest.get('tag/blog/list', {
+        tagName: $stateParams.tag
+    }).then(function(res) {
+        $scope.blogs = res.val.blogs;
+        $scope.$broadcast("pagination", {
+            totalItems: res.val.count,
+            currentPage: $stateParams.page
+        });
+    });
+})
+
 .controller('aboutController', function($rootScope) {
     window.document.title = 'About me | Jack\'s Blog';
     $rootScope.nav = 'about';
-});;
+})
+
+.controller('paginationController', function($scope, $log, $location) {
+    $scope.itemsPerPage = 10;
+    $scope.totalItems = 1;
+    $scope.currentPage = 1;
+
+    $scope.pageChanged = function() {
+        if ($scope.currentPage > 1) {
+            $location.url('/?page=' + $scope.currentPage);
+        } else {
+            $location.url('/');
+        }
+    };
+
+    $scope.$on("pagination", function(event, msg) {
+        $scope.totalItems = msg.totalItems;
+        $scope.currentPage = msg.currentPage;
+    });
+});
